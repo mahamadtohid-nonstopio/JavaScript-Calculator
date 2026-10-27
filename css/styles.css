@@ -5,17 +5,20 @@
 
 :root {
 	/* ---------theme colors (varibale)---------- */
-	--clr-gray: #bdb8b1;
-	--text-curry: #cc8523;
-	--text-curry2: rgb(205, 130, 35);
-	--clr-blue: #231a9c;
-	--clr-skyblue: #a1c9d4;
-	--transition: all 0.3s linear;
+	--clr-gray: #8b93a7;
+	--clr-violet: #7c5cff;
+	--clr-violet-dark: #5b3ee8;
+	--clr-teal: #22d3a6;
+	--clr-coral: #ff6b6b;
+	--clr-surface: #1b1f2e;
+	--clr-surface-light: #272c3f;
+	--clr-backdrop: #0f1220;
+	--transition: all 0.25s ease;
 	--clr-offwhite: #f2f2f2;
-	--b-radius: 0.6rem;
+	--b-radius: 0.9rem;
 	--clr-white: #fff;
 	--clr-black: #000000;
-	--b-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+	--b-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
 	--ff-open-sans: "Open Sans", sans-serif;
 }
 
@@ -32,7 +35,19 @@
 body {
 	line-height: 1.5;
 	font-family: var(--ff-open-sans);
-	background: var(--clr-offwhite);
+	color: var(--clr-offwhite);
+	background: radial-gradient(
+			circle at 20% 15%,
+			rgba(124, 92, 255, 0.35),
+			transparent 45%
+		),
+		radial-gradient(circle at 85% 80%, rgba(34, 211, 166, 0.25), transparent 45%),
+		var(--clr-backdrop);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 /*=====================
@@ -43,22 +58,59 @@ body {
 	display: grid; /*one logologo line */
 	justify-content: center; /*button squeeze in middle */
 	align-content: center; /*button close together in the middle */
-	min-height: 100vh; /*one logologo line spreads down the entire page*/
 	grid-template-columns: repeat(4, 100px); /*repeat row 4times each 100px */
-	grid-template-rows: minmax(120px, auto), repeat(5, 100px); /*the first row is the output which should take a minimum of 120px and max should be auto to accomodate huge figure. subsequent 5 rows should repeat 5 times each 100px */
+	grid-template-rows: minmax(120px, auto) repeat(5, 100px); /*the first row is the output which should take a minimum of 120px and max should be auto to accomodate huge figure. subsequent 5 rows should repeat 5 times each 100px */
+	gap: 0.6rem;
+	padding: 1.25rem;
+	margin: 2rem auto;
+	border-radius: calc(var(--b-radius) * 1.6);
+	background: rgba(27, 31, 46, 0.85);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: var(--b-shadow);
 }
 
 .calculator-grid > button {
 	font-size: 1.75rem;
 	cursor: pointer;
-	border: 1.5px solid var(--clr-blue);
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	border-radius: var(--b-radius);
 	outline: none;
-	background: var(--clr-skyblue);
+	color: var(--clr-offwhite);
+	background: var(--clr-surface-light);
 	padding: 1rem 0;
+	transition: var(--transition);
 }
 
 .calculator-grid > button:hover {
-	background: var(--clr-white);
+	background: #333a52;
+	transform: translateY(-2px);
+}
+
+.calculator-grid > button:active {
+	transform: translateY(1px);
+}
+
+.calculator-grid > button[data-operation],
+.calculator-grid > button[data-delete] {
+	color: var(--clr-teal);
+}
+
+.calculator-grid > button[data-all-clear] {
+	color: var(--clr-coral);
+}
+
+.calculator-grid > button[data-equals] {
+	color: var(--clr-white);
+	background: linear-gradient(
+		135deg,
+		var(--clr-violet),
+		var(--clr-violet-dark)
+	);
+	border-color: transparent;
+}
+
+.calculator-grid > button[data-equals]:hover {
+	background: linear-gradient(135deg, #8f72ff, #6a4df0);
 }
 
 .two-boxes {
@@ -67,7 +119,9 @@ body {
 
 .output {
 	grid-column: 1/-1; /*basically move from current column up to prev column, -1 */
-	background: var(--clr-blue);
+	background: var(--clr-surface);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	border-radius: var(--b-radius);
 	display: flex; /*this is not a button so use flex box to position contents*/
 	flex-direction: column;
 	align-items: flex-end;
@@ -86,4 +140,20 @@ body {
 .output > .current-operation {
 	color: var(--clr-white);
 	font-size: 2rem;
+}
+
+/*=====================
+ footer
+======================*/
+
+.footer {
+	text-align: center;
+	padding: 1.5rem 1rem 2.5rem;
+	color: var(--clr-gray);
+	font-size: 0.85rem;
+	font-weight: 400;
+}
+
+.footer strong {
+	color: var(--clr-teal);
 }
